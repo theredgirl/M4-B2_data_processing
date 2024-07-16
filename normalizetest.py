@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-allData = pd.read_excel("070124_m4_raw.xlsx",sheet_name=None)
+allData = pd.read_excel("C:\Users\cassi\Desktop\lab\coding project\070124_m4_raw.xlsx", sheet_name=None)
 
 for name in allData():
     wellData = name
