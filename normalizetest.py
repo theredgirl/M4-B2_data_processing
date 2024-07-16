@@ -3,8 +3,8 @@ import pandas as pd
 allData = pd.read_excel("C:\Users\cassi\Desktop\lab\coding project\070124_m4_raw.xlsx", sheet_name=None)
 allData = pd.read_excel("070124_m4_raw.xlsx",sheet_name=None)
 
-for name in allData():
-    wellData = name
+for key in allData:
+    wellData = allData[key]
     well = np.array(wellData)
     time = ((well[:,0])*10)-10
     cells = well[:,1:-1]
@@ -20,4 +20,4 @@ for name in allData():
     wellAvg = np.mean(normCells[:],axis = 1)
     
     wellAvgPrint = pd.DataFrame(wellAvg, time)
-    print(wellAvgPrint)
+    wellAvgPrint.to_excel("averages_proxyfile.xlsx", sheet_name= key, index=True)
