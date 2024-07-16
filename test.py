@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
-x = pd.read_excel("070124_m4_raw.xlsx",sheet_name=None)
+x = pd.ExcelFile("070124_m4_raw.xlsx")
+names = x.sheet_names
 
-print(x)
+print(names)
