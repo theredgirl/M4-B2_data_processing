@@ -29,7 +29,7 @@ for key in allData:
     timeFrame = timeFrame.join(wellAvgPrint, lsuffix='_caller', rsuffix='_other')
 
 with xlsWriter as writer:
-        timeFrame.to_excel(xlsWriter, index=False)
+        timeFrame.to_excel(xlsWriter, sheet_name="well averages", index=False)
 
 #     #instead of to_excel, make a variable for the writer and use to_excel and make the first argument the writer
 #     #missing something in the sheet_name= key part to make it cycle through each key (possibly need to make each its own loop?)
