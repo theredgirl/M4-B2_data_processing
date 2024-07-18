@@ -1,12 +1,19 @@
 import numpy as np
 import pandas as pd
-finalData = pd.ExcelWriter("C:\\Users\\cassi\\Desktop\\code\\averages_proxyfile.xlsx")
-allData = pd.read_excel("C:\\Users\\cassi\\Desktop\\code\\070124_m4_raw.xlsx", sheet_name=None)
+import os
+
+
+xlsWriter = pd.ExcelWriter(os.path.join(os.getcwd(), "averages_proxyfile.xlsx"))
+allData = pd.read_excel(os.path.join(os.getcwd(), "070124_m4_raw.xlsx"), sheet_name=None)
+firstData = allData["well 1"]
+firstWell = np.array(firstData)
+time = ((firstWell[:,0])*10)-10
+timeFrame = pd.DataFrame(columns=["time"])
+timeFrame.time = time
 
 for key in allData:
     wellData = allData[key]
     well = np.array(wellData)
-    time = ((well[:,0])*10)-10
     cells = well[:,1:-1]
     background = well[:,-1]
 
@@ -17,10 +24,13 @@ for key in allData:
     #normalize cells
     normCells = (zeroCells - blCells)/blCells
     #take average of all cells for the well
-    wellAvg = np.mean(normCells[:],axis = 1)
-    
-    wellAvgPrint = pd.DataFrame(wellAvg, time)
-    wellAvgPrint.to_excel(finalData, sheet_name= key, index=True)
+    wellAvg = np.mean(normCells, axis = 1)
+    wellAvgPrint = pd.DataFrame({key:[x for x in wellAvg]})
+    timeFrame = timeFrame.join(wellAvgPrint, lsuffix='_caller', rsuffix='_other')
 
-    #instead of to_excel, make a variable for the writer and use to_excel and make the first argument the writer
-    #use os path library for file paths (os.path.join) (os.getcwd) use import os
+with xlsWriter as writer:
+        timeFrame.to_excel(xlsWriter, index=False)
+
+#     #instead of to_excel, make a variable for the writer and use to_excel and make the first argument the writer
+#     #missing something in the sheet_name= key part to make it cycle through each key (possibly need to make each its own loop?)
+#     #use os path library for file paths (os.path.join) (os.getcwd) use import os
