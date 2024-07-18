@@ -2,11 +2,12 @@ import numpy as np
 import pandas as pd
 import os
 
-
+fileName = input("What is the name of the file to read?") + ".xlsx"
 xlsWriter = pd.ExcelWriter(os.path.join(os.getcwd(), "averages_proxyfile.xlsx"))
-allData = pd.read_excel(os.path.join(os.getcwd(), "070124_m4_raw.xlsx"), sheet_name=None)
-firstData = allData["well 1"]
-firstWell = np.array(firstData)
+allData = pd.read_excel(os.path.join(os.getcwd(), fileName), sheet_name=None)
+firstData = list(allData.values())
+firstWell = np.array(firstData[0])
+
 time = ((firstWell[:,0])*10)-10
 timeFrame = pd.DataFrame(columns=["time"])
 timeFrame.time = time
