@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-wellData = pd.read_excel("070124_m4_raw.xlsx",3)
+wellData = pd.read_excel("C:\\Users\\cassi\\Desktop\\code\\070124_m4_raw.xlsx",2)
 well = np.array(wellData)
 time = ((well[:,0])*10)-10
 cells = well[:,1:-1]
@@ -17,5 +17,5 @@ normCells = (zeroCells - blCells)/blCells
 wellAvg = np.mean(normCells,axis = 1)
 wellAvgPrint = pd.DataFrame(wellAvg, time)
 
-wellAvgPrint.to_excel("averages_proxyfile.xlsx")
+wellAvgPrint.to_excel("C:\\Users\\cassi\\Desktop\\code\\averages_proxyfile.xlsx")
 
