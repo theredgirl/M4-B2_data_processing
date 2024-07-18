@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
-allData = pd.read_excel("070124_m4_raw.xlsx", sheet_name=None)
+finalData = pd.ExcelWriter("C:\\Users\\cassi\\Desktop\\code\\averages_proxyfile.xlsx")
+allData = pd.read_excel("C:\\Users\\cassi\\Desktop\\code\\070124_m4_raw.xlsx", sheet_name=None)
 
 for key in allData:
     wellData = allData[key]
@@ -19,4 +20,7 @@ for key in allData:
     wellAvg = np.mean(normCells[:],axis = 1)
     
     wellAvgPrint = pd.DataFrame(wellAvg, time)
-    wellAvgPrint.to_excel("averages_proxyfile.xlsx", sheet_name= key, index=True)
+    wellAvgPrint.to_excel(finalData, sheet_name= key, index=True)
+
+    #instead of to_excel, make a variable for the writer and use to_excel and make the first argument the writer
+    #use os path library for file paths (os.path.join) (os.getcwd) use import os
